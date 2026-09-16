@@ -1,5 +1,6 @@
 public enum HygieneProvider: Sendable {
     public static func assess(_ host: HostDraft) -> HostDraft {
+        if host.flags.isThisMac { return host }
         var result = host
         flagTelnet(&result)
         flagFTP(&result)
@@ -62,7 +63,7 @@ public enum HygieneProvider: Sendable {
             to: &host,
             spec: FindingSpec(
                 source: "hygiene",
-                title: "HTTP admin surface without TLS",
+                title: "HTTP without TLS",
                 detail: "The host speaks HTTP on port 80 and did not present HTTPS on 443.",
                 classification: FindingClassification(
                     severity: .medium,
@@ -134,7 +135,6 @@ public enum HygieneProvider: Sendable {
         if SoftwareVersion.extract(from: host.haystack) != nil { return }
         let looksManaged = host.openPort(80) != nil
             || host.openPort(443) != nil
-            || host.identity.vendor != nil
             || host.haystack.contains("upnp")
         guard looksManaged else { return }
         FindingBuilder.append(

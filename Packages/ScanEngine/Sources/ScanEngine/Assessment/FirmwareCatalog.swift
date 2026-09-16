@@ -37,10 +37,12 @@ public enum FirmwareProvider: Sendable {
     public static func assess(_ host: HostDraft, catalog: FirmwareCatalog) -> HostDraft {
         var result = host
         let haystack = host.haystack
-        guard let current = SoftwareVersion.extract(from: haystack) else { return result }
         for release in catalog.releases {
             let tokens = release.match.map { $0.lowercased() }
-            guard tokens.allSatisfy({ haystack.contains($0) }) else { continue }
+            guard tokens.allSatisfy({ HaystackMatch.containsToken($0, in: haystack) }) else { continue }
+            let current = tokens.compactMap { HaystackMatch.version(in: haystack, near: $0) }.first
+                ?? host.flags.firmwareGuess.flatMap(SoftwareVersion.init)
+            guard let current else { continue }
             guard let latest = SoftwareVersion(release.latest), current < latest else { continue }
             FindingBuilder.append(
                 to: &result,

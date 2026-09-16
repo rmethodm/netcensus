@@ -7,8 +7,16 @@ let package = Package(
     products: [
         .library(name: "ScanEngine", targets: ["ScanEngine"]),
         .library(name: "ScanEngineMocks", targets: ["ScanEngineMocks"]),
+        .executable(name: "scanctl", targets: ["Scanctl"]),
     ],
     targets: [
+        .executableTarget(
+            name: "Scanctl",
+            dependencies: ["ScanEngine"],
+            swiftSettings: [
+                .swiftLanguageMode(.v6),
+            ]
+        ),
         .target(
             name: "ScanEngine",
             resources: [

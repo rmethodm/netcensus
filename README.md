@@ -6,7 +6,7 @@ See `docs/planning/` for the product plan.
 
 ## Current (pre-v1.0)
 
-MVP scan/assess loop is in place. A Developer ID Release is notarized. Remaining for v1.0: dogfood on a real LAN, then a download page.
+MVP scan/assess loop is in place. A Developer ID Release is notarized. Live LAN dogfood runs daily at 10:00 via LaunchAgent. Remaining for v1.0: keep dogfooding, then a download page.
 
 - Live discovery, fingerprinting, and assessment
 - Export JSON/CSV/Markdown; inventory new/gone/changed
@@ -39,3 +39,15 @@ Uses the Apple ID signed into Xcode (team `MNC9M36A88`). Optional for later runs
 ```bash
 xcrun notarytool store-credentials notarytool --team-id MNC9M36A88
 ```
+
+## Live LAN dogfood
+
+Headless scans of the attached private subnet (requires `--i-am-authorized`). Results go to `~/Library/Application Support/Scanner/dogfood/` and are not committed.
+
+```bash
+chmod +x scripts/dogfood-scan.sh scripts/install-dogfood-agent.sh
+./scripts/dogfood-scan.sh
+./scripts/install-dogfood-agent.sh   # daily 10:00 while this Mac is on
+```
+
+The GUI can also dogfood: Settings → Open at login, Scan when Scanner opens, Repeat daily.

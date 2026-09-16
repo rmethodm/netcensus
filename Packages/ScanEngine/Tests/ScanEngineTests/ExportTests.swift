@@ -74,3 +74,39 @@ struct InventoryDifferTests {
         #expect(byIP["192.168.1.3"] == .appeared)
     }
 }
+
+struct DogfoodArchiveTests {
+    @Test func writesLatestAndDetectsNewHost() throws {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("dogfood-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let first = ScanReport(
+            generatedAt: Date(timeIntervalSince1970: 1_800_000_000),
+            interfaceName: "en0",
+            cidr: "192.168.1.0/24",
+            profile: "standard",
+            hosts: [
+                HostDraft(identity: HostIdentity(ipv4: "192.168.1.1"), services: [ServiceDraft(port: 80)]),
+            ]
+        )
+        _ = try DogfoodArchive.write(report: first, to: directory)
+
+        let second = ScanReport(
+            generatedAt: Date(timeIntervalSince1970: 1_800_086_400),
+            interfaceName: "en0",
+            cidr: "192.168.1.0/24",
+            profile: "standard",
+            hosts: [
+                HostDraft(identity: HostIdentity(ipv4: "192.168.1.1"), services: [ServiceDraft(port: 80)]),
+                HostDraft(identity: HostIdentity(ipv4: "192.168.1.50"), services: [ServiceDraft(port: 22)]),
+            ]
+        )
+        let result = try DogfoodArchive.write(report: second, to: directory)
+        #expect(result.drift.contains { $0.status == .appeared && $0.snapshot.ipv4 == "192.168.1.50" })
+        #expect(FileManager.default.fileExists(atPath: result.latestURL.path))
+        #expect(DogfoodArchive.loadLatest(in: directory)?.hosts.count == 2)
+        let summary = try String(contentsOf: result.summaryURL, encoding: .utf8)
+        #expect(summary.contains("New: 192.168.1.50"))
+    }
+}

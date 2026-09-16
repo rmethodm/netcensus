@@ -65,8 +65,8 @@ Solo or small team. Calendar time ~10 weeks to a notarized MVP if engine work is
 
 ### Milestone 6: v1.0
 
-- [ ] Two-week dogfood on a real lab + a “boring” home LAN
-- [ ] Fix false-positive top offenders
+- [ ] Two-week dogfood on a real lab + a “boring” home LAN (daily LaunchAgent + first live baseline recorded)
+- [x] Fix false-positive top offenders
 - [ ] Direct download page or GitHub Releases
 - [x] Notarize a Release build (`notarytool`, Developer ID)
 

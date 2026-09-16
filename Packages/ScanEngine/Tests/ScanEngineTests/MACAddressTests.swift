@@ -14,4 +14,11 @@ struct MACAddressTests {
         #expect(MACAddress("aa:bb") == nil)
         #expect(MACAddress("") == nil)
     }
+
+    @Test func flagsBroadcastAndMulticast() {
+        #expect(MACAddress("ff:ff:ff:ff:ff:ff")?.isBroadcast == true)
+        #expect(MACAddress("01:00:5e:00:00:fb")?.isMulticast == true)
+        #expect(MACAddress("d4:35:1d:eb:24:33")?.isBroadcast == false)
+        #expect(MACAddress("d4:35:1d:eb:24:33")?.isMulticast == false)
+    }
 }

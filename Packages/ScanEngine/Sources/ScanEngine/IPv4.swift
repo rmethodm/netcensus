@@ -73,6 +73,13 @@ public struct IPv4CIDR: Sendable, Equatable, Hashable {
         return (address.rawValue & mask) == (network.rawValue & mask)
     }
 
+    public func isUsableHost(_ address: IPv4Address) -> Bool {
+        guard contains(address) else { return false }
+        if prefixLength >= 31 { return true }
+        let hostBits = address.rawValue & ~Self.mask(prefixLength)
+        return hostBits != 0 && hostBits != ~Self.mask(prefixLength)
+    }
+
     public var canEnumerateHosts: Bool {
         hostCount <= 1024
     }

@@ -36,7 +36,8 @@ private final class PingSocket: @unchecked Sendable {
             }
         }
 
-        let packet = echoRequest(identifier: identifier, sequence: 1)
+        let sequence = UInt16(truncatingIfNeeded: address.rawValue)
+        let packet = echoRequest(identifier: identifier, sequence: sequence)
         var dest = sockaddr_in()
         dest.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
         dest.sin_family = sa_family_t(AF_INET)
@@ -56,9 +57,7 @@ private final class PingSocket: @unchecked Sendable {
 
         let source = DispatchSource.makeReadSource(fileDescriptor: fd, queue: .global())
         source.setEventHandler {
-            var buffer = [UInt8](repeating: 0, count: 128)
-            let received = recv(fd, &buffer, buffer.count, 0)
-            if received > 0, isEchoReply(buffer, identifier: identifier) {
+            if readMatches(fd: fd, address: address, identifier: identifier, sequence: sequence) {
                 source.cancel()
                 finish(true)
             }
@@ -69,6 +68,26 @@ private final class PingSocket: @unchecked Sendable {
             source.cancel()
             finish(false)
         }
+    }
+
+    private static func readMatches(
+        fd: Int32,
+        address: IPv4Address,
+        identifier: UInt16,
+        sequence: UInt16
+    ) -> Bool {
+        var buffer = [UInt8](repeating: 0, count: 128)
+        var src = sockaddr_in()
+        var srcLen = socklen_t(MemoryLayout<sockaddr_in>.size)
+        let received = withUnsafeMutablePointer(to: &src) { pointer in
+            pointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { sa in
+                recvfrom(fd, &buffer, buffer.count, 0, sa, &srcLen)
+            }
+        }
+        let sourceIP = IPv4Address(rawValue: UInt32(bigEndian: src.sin_addr.s_addr))
+        return received > 0
+            && sourceIP == address
+            && ICMPEcho.matchesReply(Array(buffer.prefix(received)), identifier: identifier, sequence: sequence)
     }
 
     private static func echoRequest(identifier: UInt16, sequence: UInt16) -> [UInt8] {
@@ -82,19 +101,6 @@ private final class PingSocket: @unchecked Sendable {
         packet[2] = UInt8(sum >> 8)
         packet[3] = UInt8(sum & 0xff)
         return packet
-    }
-
-    private static func isEchoReply(_ buffer: [UInt8], identifier: UInt16) -> Bool {
-        guard buffer.count >= 8 else { return false }
-        if buffer[0] == 0 {
-            let id = UInt16(buffer[4]) << 8 | UInt16(buffer[5])
-            return id == identifier
-        }
-        if buffer.count >= 28, buffer[20] == 0 {
-            let id = UInt16(buffer[24]) << 8 | UInt16(buffer[25])
-            return id == identifier
-        }
-        return false
     }
 
     private static func checksum(_ data: [UInt8]) -> UInt16 {
@@ -111,6 +117,24 @@ private final class PingSocket: @unchecked Sendable {
             sum = (sum & 0xffff) + (sum >> 16)
         }
         return ~UInt16(truncatingIfNeeded: sum)
+    }
+}
+
+enum ICMPEcho: Sendable {
+    static func matchesReply(_ buffer: [UInt8], identifier: UInt16, sequence: UInt16) -> Bool {
+        guard let icmp = icmpHeader(in: buffer) else { return false }
+        guard icmp.count >= 8, icmp[0] == 0 else { return false }
+        let id = UInt16(icmp[4]) << 8 | UInt16(icmp[5])
+        let seq = UInt16(icmp[6]) << 8 | UInt16(icmp[7])
+        return id == identifier && seq == sequence
+    }
+
+    private static func icmpHeader(in buffer: [UInt8]) -> [UInt8]? {
+        if buffer.count >= 8, buffer[0] == 0 { return buffer }
+        if buffer.count >= 28, buffer[0] >> 4 == 4, buffer[20] == 0 {
+            return Array(buffer.dropFirst(20))
+        }
+        return nil
     }
 }
 

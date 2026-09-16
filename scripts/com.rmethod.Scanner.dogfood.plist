@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.rmethod.Scanner.dogfood</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/Users/rmethodm/Macdev-local/Macosapps/Scanner/scripts/dogfood-scan.sh</string>
+	</array>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>10</integer>
+		<key>Minute</key>
+		<integer>0</integer>
+	</dict>
+	<key>WorkingDirectory</key>
+	<string>/Users/rmethodm/Macdev-local/Macosapps/Scanner</string>
+	<key>StandardOutPath</key>
+	<string>/Users/rmethodm/Library/Application Support/Scanner/dogfood/launchd.out.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/rmethodm/Library/Application Support/Scanner/dogfood/launchd.err.log</string>
+</dict>
+</plist>

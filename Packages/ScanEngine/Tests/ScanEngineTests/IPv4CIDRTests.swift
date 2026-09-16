@@ -43,6 +43,9 @@ struct IPv4CIDRTests {
         #expect(hosts.count == 254)
         #expect(cidr.canEnumerateHosts)
         #expect(try IPv4CIDR("10.0.0.0/16").canEnumerateHosts == false)
+        #expect(cidr.isUsableHost(try #require(IPv4Address("192.168.1.50"))))
+        #expect(cidr.isUsableHost(try #require(IPv4Address("192.168.1.0"))) == false)
+        #expect(cidr.isUsableHost(try #require(IPv4Address("192.168.1.255"))) == false)
     }
 
     @Test func invalidStrings() {

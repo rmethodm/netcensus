@@ -221,7 +221,7 @@ private final class DiscoverySession: @unchecked Sendable {
     }
 
     func mergeARP(_ entries: [ARPEntry]) {
-        for entry in entries where inScope(entry.ipv4) {
+        for entry in entries where isUsableARP(entry) {
             emit(
                 HostDraft(
                     identity: HostIdentity(ipv4: entry.ipv4, mac: entry.mac),
@@ -278,5 +278,11 @@ private final class DiscoverySession: @unchecked Sendable {
     private func inScope(_ ip: String) -> Bool {
         guard let address = IPv4Address(ip) else { return false }
         return cidr.contains(address)
+    }
+
+    private func isUsableARP(_ entry: ARPEntry) -> Bool {
+        guard let address = IPv4Address(entry.ipv4), cidr.isUsableHost(address) else { return false }
+        if let mac = MACAddress(entry.mac), mac.isBroadcast || mac.isMulticast { return false }
+        return true
     }
 }

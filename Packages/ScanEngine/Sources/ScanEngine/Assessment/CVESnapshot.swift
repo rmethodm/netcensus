@@ -51,15 +51,20 @@ public struct CVESnapshot: Sendable, Equatable, Codable {
 }
 
 public enum CVEMatcher: Sendable {
-    public static func matches(_ entry: CVEEntry, haystack: String, version: SoftwareVersion?) -> Confidence? {
+    public static func matches(_ entry: CVEEntry, haystack: String, version: SoftwareVersion? = nil) -> Confidence? {
         let tokens = entry.products.map { $0.lowercased() }
-        guard !tokens.isEmpty, tokens.allSatisfy({ haystack.contains($0) }) else { return nil }
-        guard let minRaw = entry.minVersion, let maxRaw = entry.maxVersionExclusive else {
-            return version == nil ? .low : .medium
+        guard !tokens.isEmpty, tokens.allSatisfy({ HaystackMatch.containsToken($0, in: haystack) }) else {
+            return nil
         }
-        guard let version else { return .low }
-        if let min = SoftwareVersion(minRaw), version < min { return nil }
-        if let max = SoftwareVersion(maxRaw), !(version < max) { return nil }
+        // Vendor-only hits without a version range are not CVEs we can defend.
+        guard let minRaw = entry.minVersion, let maxRaw = entry.maxVersionExclusive else {
+            return nil
+        }
+        let observed = version
+            ?? tokens.compactMap { HaystackMatch.version(in: haystack, near: $0) }.first
+        guard let observed else { return nil }
+        if let min = SoftwareVersion(minRaw), observed < min { return nil }
+        if let max = SoftwareVersion(maxRaw), !(observed < max) { return nil }
         return .high
     }
 }
@@ -68,9 +73,8 @@ public enum CVEMatchProvider: Sendable {
     public static func assess(_ host: HostDraft, snapshot: CVESnapshot) -> HostDraft {
         var result = host
         let haystack = host.haystack
-        let version = SoftwareVersion.extract(from: haystack)
         for entry in snapshot.entries {
-            guard let confidence = CVEMatcher.matches(entry, haystack: haystack, version: version) else {
+            guard let confidence = CVEMatcher.matches(entry, haystack: haystack) else {
                 continue
             }
             let severity = severity(for: entry.cvss)
@@ -80,7 +84,9 @@ public enum CVEMatchProvider: Sendable {
                     source: "cve-match",
                     title: "\(entry.id): \(entry.title)",
                     detail: "Matched product tokens \(entry.products.joined(separator: ", "))"
-                        + (version.map { " at version \($0.parts.map(String.init).joined(separator: "."))" } ?? " (version not confirmed)."),
+                        + (HaystackMatch.version(in: haystack, near: entry.products[0])
+                            .map { " at version \($0.parts.map(String.init).joined(separator: "."))" }
+                            ?? "."),
                     classification: FindingClassification(
                         severity: severity,
                         category: .cve,

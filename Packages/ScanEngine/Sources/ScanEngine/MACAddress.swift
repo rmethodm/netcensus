@@ -23,4 +23,13 @@ public struct MACAddress: Sendable, Equatable, Hashable {
     public var ouiPrefix: String {
         octets.prefix(3).map { String(format: "%02x", $0) }.joined(separator: ":")
     }
+
+    public var isBroadcast: Bool {
+        octets.allSatisfy { $0 == 0xff }
+    }
+
+    public var isMulticast: Bool {
+        guard let first = octets.first else { return false }
+        return first & 1 == 1
+    }
 }
