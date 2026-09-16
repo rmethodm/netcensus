@@ -42,6 +42,7 @@ targets:
         INFOPLIST_KEY_NSPrincipalClass: NSApplication
         INFOPLIST_KEY_NSLocalNetworkUsageDescription: "Scanner discovers and identifies devices on networks you are authorized to assess."
         INFOPLIST_KEY_NSUserNotificationsUsageDescription: "Scanner notifies you when a scheduled scan finds new hosts or high-severity issues."
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         GENERATE_INFOPLIST_FILE: YES
         COMBINE_HIDPI_IMAGES: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -50,6 +51,10 @@ targets:
         ENABLE_APP_SANDBOX: NO
         SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
         LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
+      configs:
+        Release:
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
+          OTHER_CODE_SIGN_FLAGS: "--timestamp"
     preBuildScripts:
       - name: SwiftLint
         basedOnDependencyAnalysis: false

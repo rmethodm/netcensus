@@ -6,7 +6,7 @@ See `docs/planning/` for the product plan.
 
 ## Current (pre-v1.0)
 
-MVP scan/assess loop is in place. Remaining for a public v1.0: git history, notarized Release, dogfood on a real LAN.
+MVP scan/assess loop is in place. A Developer ID Release is notarized. Remaining for v1.0: dogfood on a real LAN, then a download page.
 
 - Live discovery, fingerprinting, and assessment
 - Export JSON/CSV/Markdown; inventory new/gone/changed
@@ -26,3 +26,16 @@ xcodebuild -scheme Scanner -destination 'platform=macOS' test
 ```
 
 Requires Xcode 27, macOS 15+, SwiftLint (`brew install swiftlint`).
+
+## Notarize (Developer ID)
+
+```bash
+chmod +x scripts/notarize.sh
+./scripts/notarize.sh
+```
+
+Uses the Apple ID signed into Xcode (team `MNC9M36A88`). Optional for later runs:
+
+```bash
+xcrun notarytool store-credentials notarytool --team-id MNC9M36A88
+```

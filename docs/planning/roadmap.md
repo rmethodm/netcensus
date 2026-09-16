@@ -59,7 +59,7 @@ Solo or small team. Calendar time ~10 weeks to a notarized MVP if engine work is
 - [x] Device merge + first/last seen
 - [x] Diff new/gone/changed
 - [x] Markdown/JSON/CSV export
-- [x] Hardened Runtime (notarize still open)
+- [x] Hardened Runtime + notarize
 - [x] Privacy policy (local data, no telemetry)
 - [x] In-app policy page
 
@@ -68,7 +68,7 @@ Solo or small team. Calendar time ~10 weeks to a notarized MVP if engine work is
 - [ ] Two-week dogfood on a real lab + a “boring” home LAN
 - [ ] Fix false-positive top offenders
 - [ ] Direct download page or GitHub Releases
-- [ ] Notarize a Release build (`notarytool`, Developer ID)
+- [x] Notarize a Release build (`notarytool`, Developer ID)
 
 ## Version Planning
 

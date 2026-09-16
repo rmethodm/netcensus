@@ -31,6 +31,7 @@
 		ABBE14E917C584D0DE4811FA /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809E70876F339AF159B1C47 /* PolicyView.swift */; };
 		AD0D72628AE29D626F592CDD /* InventoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1E22CAD72244677CCB6F1 /* InventoryRepositoryTests.swift */; };
 		BC0048BD6C00620A6964D6E0 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73228487BDE0DE41497C038D /* AuthorizationView.swift */; };
+		C3DB51D0E286DC1AF94A02F6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 84A94F512C32C57A4A5C3ACF /* PrivacyInfo.xcprivacy */; };
 		E5195B9C0CD67BAF724ED448 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5C0B06E187B1688154AE5 /* RootView.swift */; };
 		E7A228501D6BA714AC917F51 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447590F4EC0FBD2126B9163E /* SettingsView.swift */; };
 		E85023D197FE1ADC110A7C49 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75835243384487FEA8B8BF5B /* CredentialsView.swift */; };
@@ -64,6 +65,7 @@
 		73228487BDE0DE41497C038D /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		75835243384487FEA8B8BF5B /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		75E0FCF3EC0CEEC3224083CB /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
+		84A94F512C32C57A4A5C3ACF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		857F2AFF72E2D1CA3DA35E5F /* ScanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		8809E70876F339AF159B1C47 /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
 		89BD71421005D461564DEA03 /* AuthorizationStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationStoreTests.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				E04D7003C21FB8EB45EC2166 /* Assets.xcassets */,
+				84A94F512C32C57A4A5C3ACF /* PrivacyInfo.xcprivacy */,
 				A0958202244E21165EB24EFE /* Scanner.entitlements */,
 			);
 			path = Resources;
@@ -361,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E5FE5EE17219E5B9316AEC9 /* Assets.xcassets in Resources */,
+				C3DB51D0E286DC1AF94A02F6 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,17 +552,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scanner/Resources/Scanner.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = MNC9M36A88;
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Scanner;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026. All rights reserved.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Scanner discovers and identifies devices on networks you are authorized to assess.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "Scanner notifies you when a scheduled scan finds new hosts or high-severity issues.";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rmethod.Scanner;
 				PRODUCT_NAME = Scanner;
 				SDKROOT = macosx;
@@ -646,6 +653,7 @@
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Scanner;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026. All rights reserved.";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Scanner discovers and identifies devices on networks you are authorized to assess.";
