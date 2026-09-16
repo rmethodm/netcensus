@@ -1,0 +1,94 @@
+name: Scanner
+options:
+  bundleIdPrefix: com.rmethod
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "0.1.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    DEAD_CODE_STRIPPING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+packages:
+  ScanEngine:
+    path: Packages/ScanEngine
+targets:
+  Scanner:
+    type: application
+    platform: macOS
+    sources:
+      - path: Scanner
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - package: ScanEngine
+        product: ScanEngine
+      - package: ScanEngine
+        product: ScanEngineMocks
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rmethod.Scanner
+        PRODUCT_NAME: Scanner
+        INFOPLIST_KEY_CFBundleDisplayName: Scanner
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026. All rights reserved."
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        INFOPLIST_KEY_NSLocalNetworkUsageDescription: "Scanner discovers and identifies devices on networks you are authorized to assess."
+        INFOPLIST_KEY_NSUserNotificationsUsageDescription: "Scanner notifies you when a scheduled scan finds new hosts or high-severity issues."
+        GENERATE_INFOPLIST_FILE: YES
+        COMBINE_HIDPI_IMAGES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: Scanner/Resources/Scanner.entitlements
+        DEVELOPMENT_TEAM: MNC9M36A88
+        ENABLE_APP_SANDBOX: NO
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
+    preBuildScripts:
+      - name: SwiftLint
+        basedOnDependencyAnalysis: false
+        script: |
+          export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
+          if which swiftlint >/dev/null; then
+            swiftlint lint --quiet
+          else
+            echo "warning: SwiftLint not installed (brew install swiftlint)"
+          fi
+  ScannerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - ScannerTests
+    dependencies:
+      - target: Scanner
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rmethod.ScannerTests
+        DEVELOPMENT_TEAM: MNC9M36A88
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
+        MACOSX_DEPLOYMENT_TARGET: "15.0"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+schemes:
+  Scanner:
+    build:
+      targets:
+        Scanner: all
+        ScannerTests: [test]
+    test:
+      targets:
+        - ScannerTests
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

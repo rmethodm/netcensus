@@ -1,0 +1,50 @@
+included:
+  - Scanner
+  - ScannerTests
+  - Packages/ScanEngine/Sources
+  - Packages/ScanEngine/Tests
+excluded:
+  - build
+  - .build
+  - Packages/ScanEngine/.build
+  - Scanner.xcodeproj
+
+disabled_rules:
+  - trailing_comma
+  - optional_data_string_conversion
+  - trailing_newline
+
+identifier_name:
+  min_length:
+    warning: 2
+    error: 1
+  excluded:
+    - id
+    - ip
+    - sa
+
+line_length:
+  warning: 200
+  error: 250
+  ignores_urls: true
+  ignores_comments: true
+
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+
+function_body_length:
+  warning: 50
+  error: 100
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 500
+  error: 1000
+
+function_parameter_count:
+  warning: 5
+  error: 8

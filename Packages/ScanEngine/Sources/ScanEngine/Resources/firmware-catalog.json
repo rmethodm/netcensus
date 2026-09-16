@@ -1,0 +1,23 @@
+{
+  "version": "2026-09-15",
+  "releases": [
+    {
+      "name": "Synology DSM",
+      "match": ["synology"],
+      "latest": "7.2.2",
+      "advisory": "Update DSM from Control Panel → Update & Restore to the current Synology release."
+    },
+    {
+      "name": "UniFi Network",
+      "match": ["unifi"],
+      "latest": "9.0.0",
+      "advisory": "Update the UniFi Network application / console to the current Ubiquiti release."
+    },
+    {
+      "name": "Apache HTTP Server",
+      "match": ["apache"],
+      "latest": "2.4.62",
+      "advisory": "Upgrade httpd to the current 2.4.x stable from Apache or your OS vendor."
+    }
+  ]
+}
