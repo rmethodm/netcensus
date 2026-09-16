@@ -1,18 +1,18 @@
-# Scanner Privacy Policy
+# Netcensus Privacy Policy
 
-**Last updated**: 2026-09-15
+**Last updated**: 2026-09-16
 
-Scanner is a local network assessment tool. Scan results stay on this Mac unless you export them.
+Netcensus is a local network assessment tool. Scan results stay on this Mac unless you export them.
 
-## Data Scanner collects
+## Data Netcensus collects
 
 - Network interface names, IP addresses, MAC addresses, hostnames, service banners, and similar technical identifiers on networks you confirm you are authorized to assess
 - Optional SNMP communities and SSH key paths you store for authenticated checks (secrets in Keychain)
 - Scan history in the app’s local SwiftData store
 
-Scanner does not create an account and does not send telemetry, analytics, or crash reports.
+Netcensus does not create an account and does not send telemetry, analytics, or crash reports.
 
-## Data Scanner does not collect
+## Data Netcensus does not collect
 
 - Contacts, photos, location traces, or files outside what you choose to export
 - Traffic contents beyond the banners and protocol metadata needed to identify a service
@@ -34,4 +34,4 @@ Vulnerability and firmware catalogs ship as local snapshot files inside the app.
 
 ## Contact
 
-This is a directly distributed tool. Questions go to the developer who built this copy of Scanner.
+This is a directly distributed tool. Questions go to [github.com/rmethodm/netcensus/issues](https://github.com/rmethodm/netcensus/issues).

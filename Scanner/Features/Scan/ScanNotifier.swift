@@ -7,7 +7,7 @@ enum ScanNotifier {
 
     static func postCompletion(hostCount: Int, newCount: Int, highCount: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "Scanner finished"
+        content.title = "\(AppBrand.displayName) finished"
         var parts = ["\(hostCount) hosts"]
         if newCount > 0 { parts.append("\(newCount) new") }
         if highCount > 0 { parts.append("\(highCount) high-severity findings") }

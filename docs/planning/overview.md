@@ -1,8 +1,8 @@
 # Scanner — Overview
 
 **Last Updated**: 2026-09-16
-**Working title**: Scanner (Xcode project / workspace name)
-**Shipping name**: TBD — do not ship as “Scanner”; it is generic and crowded. Candidates: Lanwatch, Hostboard, Netcensus.
+**Working title**: Scanner (Xcode project / workspace name, bundle `com.rmethod.Scanner`)
+**Shipping name**: Netcensus
 
 ## Quick Summary
 
@@ -10,8 +10,8 @@
 - **Target Users**: Security professionals, homelab operators, and IT admins who own or are authorized to assess the LAN.
 - **Platform**: macOS 15+ native (MVP). iOS companion later (view history / limited discovery).
 - **Project Type**: Personal / professional tool, built to ship.
-- **Status**: Implemented (pre-v1.0; not notarized)
-- **Distribution**: Direct download, Developer ID signed and notarized. Not Mac App Store in v1.
+- **Status**: v1.0 (macOS, Developer ID + notarization)
+- **Distribution**: GitHub Releases (`rmethodm/netcensus`). Not Mac App Store in v1.
 
 ## Vision
 

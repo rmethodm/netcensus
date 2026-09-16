@@ -62,7 +62,7 @@ struct RootView: View {
                 } detail: {
                     DeviceDetailView()
                 }
-                .navigationTitle("Scanner")
+                .navigationTitle(AppBrand.displayName)
             }
         }
     }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Archive Scanner, export a Developer ID build, notarize, and staple.
+# Archive Netcensus, export a Developer ID build, notarize, and staple.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -44,13 +44,13 @@ xcodebuild \
   -allowProvisioningUpdates \
   DEVELOPMENT_TEAM="$TEAM_ID"
 
-APP="$EXPORT_PATH/Scanner.app"
+APP="$EXPORT_PATH/Netcensus.app"
 if [[ ! -d "$APP" ]]; then
   echo "error: expected $APP after export" >&2
   exit 1
 fi
 
-ZIP="$EXPORT_PATH/Scanner.zip"
+ZIP="$EXPORT_PATH/Netcensus.zip"
 rm -f "$ZIP"
 ditto -c -k --keepParent "$APP" "$ZIP"
 
@@ -74,8 +74,8 @@ else
   for _ in {1..36}; do
     if xcodebuild -exportNotarizedApp -archivePath "$ARCHIVE_PATH" -exportPath "$DIST_PATH"; then
       notarized=1
-      if [[ -d "$DIST_PATH/Scanner.app" ]]; then
-        APP="$DIST_PATH/Scanner.app"
+      if [[ -d "$DIST_PATH/Netcensus.app" ]]; then
+        APP="$DIST_PATH/Netcensus.app"
       fi
       break
     fi
@@ -91,7 +91,7 @@ fi
 
 echo "==> Stapling"
 xcrun stapler staple "$APP"
-ZIP="$ROOT/build/release/Scanner-notarized.zip"
+ZIP="$ROOT/build/release/Netcensus-notarized.zip"
 ditto -c -k --keepParent "$APP" "$ZIP"
 
 echo "==> Gatekeeper"

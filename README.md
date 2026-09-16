@@ -1,12 +1,18 @@
-# Scanner
+# Netcensus
 
 Native macOS app that inventories devices on a network you are authorized to assess, fingerprints them, and records vulnerabilities and missing updates — without exploits or brute-force.
 
+The Xcode project remains `Scanner` (bundle `com.rmethod.Scanner`). The shipping name is **Netcensus**.
+
 See `docs/planning/` for the product plan.
 
-## Current (pre-v1.0)
+## Download
 
-MVP scan/assess loop is in place. A Developer ID Release is notarized. Live LAN dogfood runs daily at 10:00 via LaunchAgent. Remaining for v1.0: keep dogfooding, then a download page.
+Developer ID signed and notarized builds: [GitHub Releases](https://github.com/rmethodm/netcensus/releases).
+
+macOS 15 or later. Unzip and drag **Netcensus.app** to Applications. The first scan asks you to confirm you are authorized to assess that subnet.
+
+## Current (v1.0)
 
 - Live discovery, fingerprinting, and assessment
 - Export JSON/CSV/Markdown; inventory new/gone/changed
@@ -50,4 +56,4 @@ chmod +x scripts/dogfood-scan.sh scripts/install-dogfood-agent.sh
 ./scripts/install-dogfood-agent.sh   # daily 10:00 while this Mac is on
 ```
 
-The GUI can also dogfood: Settings → Open at login, Scan when Scanner opens, Repeat daily.
+The GUI can also dogfood: Settings → Open at login, Scan when Netcensus opens, Repeat daily.

@@ -30,6 +30,7 @@
 		9E5FE5EE17219E5B9316AEC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E04D7003C21FB8EB45EC2166 /* Assets.xcassets */; };
 		ABBE14E917C584D0DE4811FA /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8809E70876F339AF159B1C47 /* PolicyView.swift */; };
 		AD0D72628AE29D626F592CDD /* InventoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC1E22CAD72244677CCB6F1 /* InventoryRepositoryTests.swift */; };
+		BBED9A4AA629932C29587CEF /* AppBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130157710BF3A8800F915ED1 /* AppBrand.swift */; };
 		BC0048BD6C00620A6964D6E0 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73228487BDE0DE41497C038D /* AuthorizationView.swift */; };
 		C3DB51D0E286DC1AF94A02F6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 84A94F512C32C57A4A5C3ACF /* PrivacyInfo.xcprivacy */; };
 		E5195B9C0CD67BAF724ED448 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5C0B06E187B1688154AE5 /* RootView.swift */; };
@@ -53,6 +54,7 @@
 		0A999ADC2129560DA772D1F4 /* PersistenceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceModels.swift; sourceTree = "<group>"; };
 		0AD55949F6CE7E99B4C304B9 /* ScanEngine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ScanEngine; path = Packages/ScanEngine; sourceTree = SOURCE_ROOT; };
 		10FA0B1F4EE7977DBCC5FE15 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		130157710BF3A8800F915ED1 /* AppBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBrand.swift; sourceTree = "<group>"; };
 		1414F8B79CA26A587C373FC3 /* ScanSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSchedule.swift; sourceTree = "<group>"; };
 		1981F165D880D8414DAB8CEA /* FindingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindingsView.swift; sourceTree = "<group>"; };
 		277C4B13143725FD3213B01F /* ScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 		1FE3D6CFB17B5175CFC46B78 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				130157710BF3A8800F915ED1 /* AppBrand.swift */,
 				306902E23D234DF9A0C5E50C /* ScannerApp.swift */,
 			);
 			path = App;
@@ -397,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBED9A4AA629932C29587CEF /* AppBrand.swift in Sources */,
 				4C3680E788B66DC0DBAA4542 /* AuthorizationStore.swift in Sources */,
 				BC0048BD6C00620A6964D6E0 /* AuthorizationView.swift in Sources */,
 				99F12DC6003804E027AF7A89 /* CredentialVault.swift in Sources */,
@@ -459,7 +463,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rmethod.ScannerTests;
 				SDKROOT = macosx;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scanner.app/Contents/MacOS/Scanner";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Netcensus.app/Contents/MacOS/Netcensus";
 			};
 			name = Debug;
 		};
@@ -480,7 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rmethod.ScannerTests;
 				SDKROOT = macosx;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scanner.app/Contents/MacOS/Scanner";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Netcensus.app/Contents/MacOS/Netcensus";
 			};
 			name = Release;
 		};
@@ -519,7 +523,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -534,7 +538,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -557,17 +561,18 @@
 				DEVELOPMENT_TEAM = MNC9M36A88;
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Scanner;
+				INFOPLIST_KEY_CFBundleDisplayName = Netcensus;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026. All rights reserved.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Scanner discovers and identifies devices on networks you are authorized to assess.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Netcensus discovers and identifies devices on networks you are authorized to assess.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "Scanner notifies you when a scheduled scan finds new hosts or high-severity issues.";
+				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "Netcensus notifies you when a scheduled scan finds new hosts or high-severity issues.";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rmethod.Scanner;
-				PRODUCT_NAME = Scanner;
+				PRODUCT_MODULE_NAME = Scanner;
+				PRODUCT_NAME = Netcensus;
 				SDKROOT = macosx;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 			};
@@ -608,7 +613,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -629,7 +634,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -652,16 +657,17 @@
 				DEVELOPMENT_TEAM = MNC9M36A88;
 				ENABLE_APP_SANDBOX = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Scanner;
+				INFOPLIST_KEY_CFBundleDisplayName = Netcensus;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026. All rights reserved.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Scanner discovers and identifies devices on networks you are authorized to assess.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Netcensus discovers and identifies devices on networks you are authorized to assess.";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "Scanner notifies you when a scheduled scan finds new hosts or high-severity issues.";
+				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "Netcensus notifies you when a scheduled scan finds new hosts or high-severity issues.";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rmethod.Scanner;
-				PRODUCT_NAME = Scanner;
+				PRODUCT_MODULE_NAME = Scanner;
+				PRODUCT_NAME = Netcensus;
 				SDKROOT = macosx;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 			};

@@ -7,6 +7,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            #if DEBUG
             Section("Engine") {
                 Toggle("Use fixture hosts", isOn: Bindable(controller).usesFixtureEngine)
                 Text(
@@ -16,6 +17,7 @@ struct SettingsView: View {
                 )
                 .foregroundStyle(.secondary)
             }
+            #endif
             Section("Defaults") {
                 Picker("Scan profile", selection: Bindable(controller).profile) {
                     ForEach(ScanProfile.allCases) { profile in
@@ -24,12 +26,12 @@ struct SettingsView: View {
                 }
             }
             Section("Schedule") {
-                Picker("Repeat while Scanner is open", selection: Bindable(controller).schedule) {
+                Picker("Repeat while \(AppBrand.displayName) is open", selection: Bindable(controller).schedule) {
                     ForEach(ScanSchedule.allCases) { item in
                         Text(item.title).tag(item)
                     }
                 }
-                Toggle("Open Scanner at login", isOn: $launchAtLogin)
+                Toggle("Open \(AppBrand.displayName) at login", isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { _, enabled in
                         do {
                             try LoginItemSettings.setEnabled(enabled)
@@ -37,7 +39,7 @@ struct SettingsView: View {
                             launchAtLogin = LoginItemSettings.isEnabled
                         }
                     }
-                Toggle("Scan when Scanner opens", isOn: Bindable(controller).scanOnLaunch)
+                Toggle("Scan when \(AppBrand.displayName) opens", isOn: Bindable(controller).scanOnLaunch)
                 Text("Scheduled scans use the current authorized scope. Open at login plus scan-on-open covers a reboot.")
                     .foregroundStyle(.secondary)
             }
@@ -63,7 +65,7 @@ struct SettingsView: View {
             Section("Privacy") {
                 Text("Scan results stay on this Mac unless you export them. There is no account and no telemetry.")
                     .foregroundStyle(.secondary)
-                NavigationLink("Scanner policy") {
+                NavigationLink("\(AppBrand.displayName) policy") {
                     PolicyView()
                 }
             }

@@ -56,7 +56,7 @@ struct ScannerApp: App {
                 .keyboardShortcut(".", modifiers: [.command])
             }
             CommandGroup(replacing: .help) {
-                Button("Scanner Policy") {
+                Button("\(AppBrand.displayName) Policy") {
                     PolicyWindow.open()
                 }
             }
@@ -81,7 +81,7 @@ enum PolicyWindow {
             backing: .buffered,
             defer: false
         )
-        window.title = "Scanner Policy"
+        window.title = "\(AppBrand.displayName) Policy"
         window.contentView = NSHostingView(rootView: PolicyView())
         window.center()
         window.isReleasedWhenClosed = false
